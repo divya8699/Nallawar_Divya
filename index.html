@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Divya Nallawar</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --cream:   #faf6f0;
+      --cream2:  #f3ece0;
+      --cream3:  #e8ddd0;
+      --ink:     #1a1208;
+      --ink2:    #3d2e18;
+      --muted:   #7a6248;
+      --faint:   #c4b09a;
+      --amber:   #d97706;
+      --amber-l: #fbbf24;
+      --amber-xl:#fde68a;
+      --orange:  #c2410c;
+      --orange-l:#f97316;
+      --rose:    #be123c;
+      --rose-l:  #fb7185;
+      --gold:    #92400e;
+      --border:  rgba(180,130,80,0.18);
+      --border2: rgba(180,130,80,0.34);
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+      --mono:  'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 58px;
+      background: rgba(250,246,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-id {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--amber); letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; color: var(--muted); text-decoration: none;
+      letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── SHARED LAYOUT ── */
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 2.5rem; }
+    section { padding: 6rem 0; }
+    section:nth-child(even) { background: var(--cream2); }
+
+    .section-label {
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--amber); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400; line-height: 1.2;
+      color: var(--ink); margin-bottom: 3rem;
+    }
+    h3 {
+      font-family: var(--sans); font-size: 1.05rem; font-weight: 500;
+      color: var(--ink); margin-bottom: 0.4rem;
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 58px; background: var(--cream);
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 4rem; align-items: center; width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: 0.78rem; color: var(--amber);
+      letter-spacing: 0.1em; margin-bottom: 1.5rem;
+    }
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 400; line-height: 1.15;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .hero-headline em { font-style: italic; color: var(--amber); }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted); line-height: 1.8;
+      max-width: 520px; margin-bottom: 2.5rem;
+    }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .pill {
+      font-family: var(--mono); font-size: 0.72rem;
+      padding: 0.3rem 0.8rem; border-radius: 100px;
+      border: 1px solid var(--border2); color: var(--muted);
+      background: rgba(255,255,255,0.5);
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.65rem 1.4rem; border-radius: 6px;
+      font-size: 0.84rem; font-family: var(--sans); font-weight: 500;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all 0.2s; letter-spacing: 0.01em;
+    }
+    .btn-dark { background: var(--ink); color: var(--cream); }
+    .btn-dark:hover { background: var(--ink2); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--border2); }
+    .btn-ghost:hover { background: var(--cream3); }
+
+    /* photo frame */
+    .hero-photo {
+      position: relative; aspect-ratio: 3/4;
+      border-radius: 4px; overflow: hidden;
+      background: var(--cream3);
+      box-shadow: 4px 4px 0 var(--cream3), 4px 4px 0 1px var(--border2);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.5rem;
+      background: linear-gradient(135deg, var(--cream2), var(--cream3));
+    }
+    .hero-photo-placeholder svg { opacity: 0.3; }
+    .hero-photo-placeholder span { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+
+    /* focused-on card */
+    .hero-focus {
+      margin-top: 3rem; padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--border); border-radius: 8px;
+    }
+    .hero-focus-label {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--amber);
+      letter-spacing: 0.1em; margin-bottom: 0.6rem;
+    }
+    .hero-focus h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .hero-focus p { font-size: 0.84rem; color: var(--muted); }
+    .hero-stats {
+      display: flex; gap: 0; margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat {
+      flex: 1; padding: 1rem 0; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      display: block; font-family: var(--serif);
+      font-size: 1.5rem; color: var(--amber); line-height: 1;
+    }
+    .hero-stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-body { font-size: 0.97rem; color: var(--muted); line-height: 1.85; }
+    .about-body p { margin-bottom: 1rem; }
+    .about-body p strong { color: var(--ink); }
+    .skills-block { margin-top: 0; }
+    .skill-group { margin-bottom: 1.8rem; }
+    .skill-group-title {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--amber);
+      letter-spacing: 0.1em; margin-bottom: 0.7rem;
+    }
+    .skill-group p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+    /* edu */
+    .edu-item { padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .edu-item:first-child { border-top: 1px solid var(--border); }
+    .edu-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .edu-school { font-weight: 500; font-size: 0.97rem; }
+    .edu-year { font-family: var(--mono); font-size: 0.75rem; color: var(--amber); white-space: nowrap; }
+    .edu-degree { font-size: 0.84rem; color: var(--muted); margin-top: 0.15rem; }
+    .edu-gpa {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--amber);
+      background: var(--amber-xl); padding: 0.1rem 0.45rem;
+      border-radius: 3px; margin-top: 0.25rem; display: inline-block;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item { padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-meta {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--amber);
+      letter-spacing: 0.05em; margin-bottom: 0.4rem;
+    }
+    .exp-role { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.15rem; }
+    .exp-org { font-size: 0.87rem; color: var(--muted); margin-bottom: 1rem; }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      font-size: 0.88rem; color: var(--muted); padding-left: 1.1rem;
+      position: relative; margin-bottom: 0.45rem; line-height: 1.7;
+    }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--faint); }
+    .exp-bullets li strong { color: var(--ink); }
+
+    /* ── PROJECTS ── */
+    .projects-list { display: flex; flex-direction: column; gap: 0; }
+    .proj-item {
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 3.5rem; align-items: start;
+      padding: 3rem 0; border-bottom: 1px solid var(--border);
+    }
+    .proj-item:first-child { border-top: 1px solid var(--border); }
+    .proj-item:nth-child(even) { direction: rtl; }
+    .proj-item:nth-child(even) > * { direction: ltr; }
+    .proj-num {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--faint);
+      letter-spacing: 0.1em; margin-bottom: 0.7rem;
+    }
+    .proj-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.7rem; line-height: 1.3; }
+    .proj-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .proj-tag {
+      font-family: var(--mono); font-size: 0.68rem;
+      padding: 0.2rem 0.55rem; border-radius: 3px;
+      background: var(--cream3); color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .proj-link {
+      font-size: 0.83rem; color: var(--amber); text-decoration: none;
+      font-weight: 500; display: inline-flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+    .proj-link:hover { gap: 0.5rem; }
+    .proj-img {
+      aspect-ratio: 4/3; border-radius: 4px; overflow: hidden;
+      background: var(--cream3); border: 1px solid var(--border);
+    }
+    .proj-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+      background: linear-gradient(135deg, #fdf6ee, #f5e8d6);
+      font-family: var(--mono); font-size: 0.72rem; color: var(--faint);
+      text-align: center; padding: 1rem;
+    }
+    .proj-img-icon { font-size: 2.5rem; margin-bottom: 0.25rem; }
+
+    /* ── MORE PROJECTS GRID ── */
+    .more-projects-label {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--faint);
+      letter-spacing: 0.1em; margin: 3rem 0 1.5rem;
+      padding-top: 3rem; border-top: 1px solid var(--border);
+    }
+    .proj-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+    }
+    .proj-mini {
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 1.3rem 1.4rem; background: rgba(255,255,255,0.5);
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .proj-mini:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .proj-mini-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+    .proj-mini-name { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.35; }
+    .proj-mini-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 0.9rem; }
+    .proj-mini-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+    .proj-mini-tag {
+      font-family: var(--mono); font-size: 0.63rem;
+      padding: 0.15rem 0.45rem; border-radius: 3px;
+      background: var(--cream3); color: var(--muted); border: 1px solid var(--border);
+    }
+    .proj-mini-link {
+      font-size: 0.78rem; color: var(--amber); text-decoration: none;
+      font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem;
+      transition: gap 0.2s; margin-top: auto;
+    }
+    .proj-mini-link:hover { gap: 0.45rem; }
+    @media (max-width: 800px) { .proj-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .proj-grid { grid-template-columns: 1fr; } }
+
+    /* ── PUBLICATIONS ── */
+    .pub-item { padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .pub-item:first-child { border-top: 1px solid var(--border); }
+    .pub-status {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--orange);
+      background: #fff7ed; border: 1px solid rgba(194,65,12,0.2);
+      padding: 0.15rem 0.5rem; border-radius: 3px;
+      display: inline-block; margin-bottom: 0.6rem;
+    }
+    .pub-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.4rem; line-height: 1.5; }
+    .pub-venue { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .pub-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── INTERESTS / BEYOND ── */
+    #beyond { background: var(--cream); }
+    .beyond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .beyond-card {
+      padding: 1.5rem; border: 1px solid var(--border);
+      border-radius: 6px; background: rgba(255,255,255,0.5);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .beyond-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .beyond-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .beyond-title { font-weight: 500; font-size: 0.97rem; margin-bottom: 0.5rem; }
+    .beyond-text { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--ink); color: var(--cream); }
+    #contact .section-label { color: var(--amber-l); }
+    #contact h2 { color: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-intro { font-size: 1rem; color: var(--faint); line-height: 1.8; }
+    .contact-links { display: flex; flex-direction: column; gap: 1.1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.9rem; color: var(--faint); text-decoration: none;
+      padding: 1rem 1.2rem; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: rgba(255,179,71,0.3); color: var(--amber-l); }
+    .contact-link-icon { font-size: 1rem; }
+    .contact-link-label { font-family: var(--mono); font-size: 0.7rem; color: var(--amber); display: block; margin-bottom: 0.1rem; letter-spacing: 0.08em; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--ink); border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 1.5rem 0; text-align: center;
+    }
+    .site-footer p { font-family: var(--mono); font-size: 0.72rem; color: rgba(255,255,255,0.2); }
+
+    /* ── SCROLL FADE ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-photo { max-width: 260px; aspect-ratio: 1/1; }
+      .proj-item { grid-template-columns: 1fr; direction: ltr !important; }
+      .proj-item:nth-child(even) { direction: ltr; }
+      .beyond-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 0; }
+    }
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+      .beyond-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-id">DN</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#beyond">Beyond Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">MS Data Science · CU Boulder · GPA 3.91</div>
+        <h1 class="hero-headline">
+          Building systems that find<br/>
+          <em>signal in the noise.</em>
+        </h1>
+        <p class="hero-sub">
+          I'm Divya Nallawar, a Data Scientist specializing in time-series forecasting, anomaly detection, and end-to-end ML pipelines. Currently researching Wi-Fi traffic patterns across 144+ campus buildings at CU Boulder — and looking for full-time roles in data science and ML engineering.
+        </p>
+        <div class="hero-pills">
+          <span class="pill">Time-Series</span>
+          <span class="pill">Forecasting</span>
+          <span class="pill">Anomaly Detection</span>
+          <span class="pill">NLP</span>
+          <span class="pill">MLOps</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-dark">View Projects</a>
+          <a href="mailto:nallawardivya@gmail.com" class="btn btn-ghost">Get in Touch</a>
+          <a href="https://linkedin.com/in/divya-nallawar" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+        </div>
+
+        <div class="hero-focus">
+          <div class="hero-focus-label">CURRENTLY FOCUSED ON</div>
+          <h3>Full-time opportunities</h3>
+          <p>Data Scientist · ML Engineer · AI Engineer · Analytics roles</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-num">144+</span>
+              <div class="hero-stat-label">buildings modeled</div>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">1M+</span>
+              <div class="hero-stat-label">packets processed</div>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">93%</span>
+              <div class="hero-stat-label">error reduction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="hero-photo">
+          <div class="hero-photo-placeholder">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <span>Add your photo here</span>
+            <span style="opacity:.6;font-size:.62rem">Replace this placeholder with<br/>an &lt;img src="photo.jpg"&gt; tag</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label reveal">About</div>
+    <h2 class="reveal">Engineer at the intersection of<br/>data, models, and decisions.</h2>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>My background combines <strong>production ML engineering</strong> with graduate-level research in time-series analysis and network analytics. At CU Boulder, I've built a full-stack Wi-Fi Analytics Platform covering 144+ buildings — implementing STL decomposition, FFT reconstruction, and PELT changepoint detection from scratch.</p>
+        <p>At StateSimplify, I deployed NLP classification pipelines using BERT and RoBERTa on 100k+ federal contract records, reducing prediction error by 93% over baseline. Before grad school, I spent two years at Amdocs as a Software Developer, delivering 12 automation systems that cut manual errors by 60%.</p>
+        <p>I'm especially drawn to problems where <strong>statistical rigor meets systems thinking</strong> — where it matters whether your model is right in production, not just on a benchmark.</p>
+
+        <div style="margin-top:2.5rem;">
+          <div class="section-label" style="margin-bottom:1.2rem;">Education</div>
+          <div class="edu-item">
+            <div class="edu-top">
+              <div class="edu-school">University of Colorado Boulder</div>
+              <div class="edu-year">May 2025</div>
+            </div>
+            <div class="edu-degree">M.S. in Data Science</div>
+            <div class="edu-gpa">GPA 3.91</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-top">
+              <div class="edu-school">Savitribai Phule Pune University</div>
+              <div class="edu-year">May 2021</div>
+            </div>
+            <div class="edu-degree">B.E. in Electronics & Telecommunication</div>
+            <div class="edu-gpa">8.45 / 10</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-block reveal">
+        <div class="section-label" style="margin-bottom:1.5rem;">Core Skills</div>
+        <div class="skill-group">
+          <div class="skill-group-title">TIME-SERIES & FORECASTING</div>
+          <p>STL decomposition, FFT spectral reconstruction, PELT changepoint detection, SARIMA, HAVOK, Hankel-DMD, TinyLSTM, LSTM, Transformer-based models, Fréchet clustering.</p>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">MACHINE LEARNING & NLP</div>
+          <p>Regression, classification, ensemble models, BERT, RoBERTa, LLMs, GridSearchCV, k-fold cross-validation, RMSE / MAE / R² evaluation, drift detection.</p>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">STATISTICS & EXPERIMENTATION</div>
+          <p>ANOVA, hypothesis testing, A/B testing, distributional analysis, EDA, experiment design, statistical validation.</p>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">STACK & TOOLS</div>
+          <p>Python, SQL, R · Pandas, NumPy, scikit-learn, PyTorch, TensorFlow, Statsmodels · FastAPI, Angular, PostgreSQL, Docker · GCP, Azure · Tableau, Power BI, Plotly, Streamlit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Experience</div>
+    <h2 class="reveal">Research and product development</h2>
+    <div class="reveal">
+      <div class="exp-item">
+        <div class="exp-meta">Apr 2024 – Present · Boulder, CO</div>
+        <div class="exp-role">Research Assistant · Data Science & Time-Series Modeling</div>
+        <div class="exp-org">University of Colorado Boulder</div>
+        <ul class="exp-bullets">
+          <li>Benchmarked forecasting models (SARIMA, LSTM, Transformer-based) on Wi-Fi time-series data across <strong>144 campus buildings</strong>, improving accuracy 20–35% over statistical baselines.</li>
+          <li>Engineered temporal behavioral features — inter-arrival time, flow duration, throughput — across <strong>100+ IP flows</strong> to distinguish human vs. automated traffic patterns.</li>
+          <li>Designed reproducible Python preprocessing pipelines transforming <strong>1M+ packet captures</strong> into clean analysis-ready datasets, cutting preprocessing time by 70%.</li>
+          <li>Performed statistical validation using ANOVA, hypothesis testing, and distributional analysis to detect drift and prioritize anomalous systems.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">Jun 2024 – May 2025 · Boulder, CO</div>
+        <div class="exp-role">Data Science Intern</div>
+        <div class="exp-org">StateSimplify LLC</div>
+        <ul class="exp-bullets">
+          <li>Designed end-to-end ML pipeline on <strong>100k+ federal contract records</strong>, reducing prediction error by 93% relative to baseline models.</li>
+          <li>Built NLP classification pipelines using <strong>BERT and RoBERTa embeddings</strong> to analyze unstructured contract descriptions, improving trend detection accuracy by 30–40%.</li>
+          <li>Engineered regression and ensemble models (Linear Regression, Random Forest, LSTM, BERT-Regression) optimized via GridSearchCV.</li>
+          <li>Built a scalable mental health chatbot leveraging OpenAI APIs and biomedical datasets, delivering real-time evidence-based responses with <strong>95% accuracy</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">Aug 2021 – Jul 2023 · Pune, India</div>
+        <div class="exp-role">Software Developer</div>
+        <div class="exp-org">Amdocs</div>
+        <ul class="exp-bullets">
+          <li>Developed data-driven automation systems in Python and SQL, improving operational efficiency by <strong>80%</strong> and reducing manual intervention by 98%.</li>
+          <li>Delivered 12 end-to-end automation solutions, reducing manual errors by 60% and improving workflow reliability.</li>
+          <li>Integrated Azure-based deployment pipelines enabling zero-downtime updates and <strong>30% performance improvements</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Selected Projects</div>
+    <h2 class="reveal">Systems I've built</h2>
+    <div class="projects-list reveal">
+
+      <div class="proj-item">
+        <div>
+          <div class="proj-num">01 / FEATURED</div>
+          <div class="proj-name">Wi-Fi Time-Series Analytics Platform</div>
+          <p class="proj-desc">Full-stack analytics platform for campus Wi-Fi traffic across 144+ buildings. Built SQL-based retrieval and preprocessing pipelines, then exposed STL decomposition, FFT spectral reconstruction (top-N), and PELT changepoint detection through a FastAPI backend and Angular frontend for interactive modeling and visualization.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Angular</span>
+            <span class="proj-tag">PostgreSQL</span><span class="proj-tag">Statsmodels</span><span class="proj-tag">Plotly</span>
+            <span class="proj-tag">STL</span><span class="proj-tag">FFT</span><span class="proj-tag">PELT</span>
+          </div>
+          <a href="https://github.com/divya8699" target="_blank" class="proj-link">View on GitHub →</a>
+        </div>
+        <div class="proj-img">
+          <div class="proj-img-placeholder">
+            <div class="proj-img-icon">📡</div>
+            <span>Wi-Fi Analytics Platform</span>
+            <span style="font-size:.62rem;opacity:.7">Add a screenshot here</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div>
+          <div class="proj-num">02</div>
+          <div class="proj-name">Federal Contract Trend Predictor</div>
+          <p class="proj-desc">End-to-end ML pipeline on 100k+ federal contract records using BERT, RoBERTa, and ensemble methods. Reduced prediction error by 93% over baseline. Model robustness evaluated via RMSE, MAE, R², k-fold cross-validation, and variance analysis.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">BERT</span><span class="proj-tag">RoBERTa</span><span class="proj-tag">Random Forest</span>
+            <span class="proj-tag">LSTM</span><span class="proj-tag">GridSearchCV</span><span class="proj-tag">Python</span>
+          </div>
+          <a href="https://github.com/divya8699" target="_blank" class="proj-link">View on GitHub →</a>
+        </div>
+        <div class="proj-img">
+          <div class="proj-img-placeholder">
+            <div class="proj-img-icon">🤖</div>
+            <span>Contract Trend Predictor</span>
+            <span style="font-size:.62rem;opacity:.7">Add a screenshot here</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div>
+          <div class="proj-num">03</div>
+          <div class="proj-name">Potentially Hazardous Asteroid Predictor</div>
+          <p class="proj-desc">Random Forest and ANN classification models achieving 97.8% prediction accuracy on NASA asteroid data. Applied ANOVA and A/B testing for statistical validation of model performance across feature subsets.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">Random Forest</span>
+            <span class="proj-tag">ANN</span><span class="proj-tag">ANOVA</span><span class="proj-tag">A/B Testing</span><span class="proj-tag">EDA</span>
+          </div>
+          <a href="https://github.com/divya8699" target="_blank" class="proj-link">View on GitHub →</a>
+        </div>
+        <div class="proj-img">
+          <div class="proj-img-placeholder">
+            <div class="proj-img-icon">🌌</div>
+            <span>Asteroid Predictor</span>
+            <span style="font-size:.62rem;opacity:.7">Add a screenshot here</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div>
+          <div class="proj-num">04</div>
+          <div class="proj-name">Time-Series & Dimensionality Reduction Study</div>
+          <p class="proj-desc">Comparative analysis of SVD and NMF on time-series and image data, achieving 71% lower reconstruction MSE using SVD. Applied Singular Spectrum Analysis (SSA) for trend extraction and signal decomposition, with detailed statistical reporting.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">R</span><span class="proj-tag">SVD</span>
+            <span class="proj-tag">NMF</span><span class="proj-tag">SSA</span><span class="proj-tag">Statsmodels</span>
+          </div>
+          <a href="https://github.com/divya8699" target="_blank" class="proj-link">View on GitHub →</a>
+        </div>
+        <div class="proj-img">
+          <div class="proj-img-placeholder">
+            <div class="proj-img-icon">📉</div>
+            <span>Dimensionality Reduction Study</span>
+            <span style="font-size:.62rem;opacity:.7">Add a screenshot here</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MORE PROJECTS GRID -->
+    <div class="reveal">
+      <div class="more-projects-label">MORE PROJECTS · JUPYTER NOTEBOOKS</div>
+      <div class="proj-grid">
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🛒</div>
+          <div class="proj-mini-name">Grocery Sales Forecasting</div>
+          <p class="proj-mini-desc">Time-series forecasting on grocery sales data — trend extraction, seasonality decomposition, and predictive modeling to support inventory and demand planning decisions.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">Time-Series</span><span class="proj-mini-tag">Forecasting</span><span class="proj-mini-tag">Jupyter</span>
+          </div>
+          <a href="https://github.com/divya8699/Grocery-Sales-Forecasting" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🏥</div>
+          <div class="proj-mini-name">Data Analytics on Healthcare Data</div>
+          <p class="proj-mini-desc">Exploratory data analysis and statistical modeling on healthcare datasets — uncovering patient trends, treatment patterns, and outcome predictors through visualization and hypothesis testing.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">EDA</span><span class="proj-mini-tag">Statistics</span><span class="proj-mini-tag">Visualization</span>
+          </div>
+          <a href="https://github.com/divya8699/Data_Analytics_on_Healthcare_Data" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🏠</div>
+          <div class="proj-mini-name">Real Estate Analysis</div>
+          <p class="proj-mini-desc">End-to-end analysis of real estate market data — feature engineering, pricing trend analysis, and predictive modeling to identify valuation drivers and market patterns.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">EDA</span><span class="proj-mini-tag">Regression</span><span class="proj-mini-tag">Pandas</span>
+          </div>
+          <a href="https://github.com/divya8699/Real-estate-Analysis-" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">📉</div>
+          <div class="proj-mini-name">Bankruptcy Prediction</div>
+          <p class="proj-mini-desc">Classification pipeline to predict corporate bankruptcy risk using financial ratios and ML models — with feature selection, class imbalance handling, and cross-validated evaluation.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">Classification</span><span class="proj-mini-tag">scikit-learn</span><span class="proj-mini-tag">SMOTE</span>
+          </div>
+          <a href="https://github.com/divya8699/Bankruptcy_Prediction" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🦠</div>
+          <div class="proj-mini-name">EDA on Covid-19 ICU Data</div>
+          <p class="proj-mini-desc">Exploratory analysis of Covid-19 ICU admission records — patient demographics, comorbidities, and clinical outcomes analyzed through statistical methods and interactive visualizations.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">EDA</span><span class="proj-mini-tag">Seaborn</span><span class="proj-mini-tag">Hypothesis Testing</span>
+          </div>
+          <a href="https://github.com/divya8699/EDA_on_Covid-19_ICU" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🩺</div>
+          <div class="proj-mini-name">Disease Prediction</div>
+          <p class="proj-mini-desc">Multi-class disease classification from symptom data using supervised ML — comparing Naive Bayes, Random Forest, and SVM with thorough evaluation metrics and confusion analysis.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">Random Forest</span><span class="proj-mini-tag">SVM</span><span class="proj-mini-tag">Multi-class</span>
+          </div>
+          <a href="https://github.com/divya8699/Disease_Prediction" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🏃</div>
+          <div class="proj-mini-name">Human Activity Detection</div>
+          <p class="proj-mini-desc">Activity recognition from accelerometer and gyroscope sensor data — classifying walking, running, sitting, and other behaviors using time-domain and frequency-domain features.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">Sensor Data</span><span class="proj-mini-tag">Feature Engineering</span><span class="proj-mini-tag">Classification</span>
+          </div>
+          <a href="https://github.com/divya8699/Human_Activity_Detection" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+        <div class="proj-mini">
+          <div class="proj-mini-icon">🔍</div>
+          <div class="proj-mini-name">Behavioral Session Clustering</div>
+          <p class="proj-mini-desc">Unsupervised clustering of user behavioral sessions to identify distinct engagement patterns — combining session-level feature extraction with K-Means, DBSCAN, and silhouette evaluation.</p>
+          <div class="proj-mini-stack">
+            <span class="proj-mini-tag">Python</span><span class="proj-mini-tag">Clustering</span><span class="proj-mini-tag">K-Means</span><span class="proj-mini-tag">DBSCAN</span><span class="proj-mini-tag">Unsupervised</span>
+          </div>
+          <a href="https://github.com/divya8699" target="_blank" class="proj-mini-link">GitHub →</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-label reveal">Research & Publications</div>
+    <h2 class="reveal">Published and ongoing work</h2>
+    <div class="reveal">
+      <div class="pub-item">
+        <div class="pub-status">Under Review</div>
+        <div class="pub-title">Comparing and Contrasting Time Series Prediction/Forecast Methods on Campus Traffic Data</div>
+        <div class="pub-venue">Manuscript under review · University of Colorado Boulder</div>
+        <p class="pub-desc">A systematic comparison of forecasting approaches — including Hankel-DMD, TinyLSTM, SARIMA, and Transformer-based models — evaluated on real-world campus Wi-Fi traffic data across 144+ buildings. The paper focuses on forecast accuracy, error variance, stability, and inference efficiency for large-scale deployment scenarios, with implications for smart building and campus capacity planning systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEYOND -->
+<section id="beyond">
+  <div class="container">
+    <div class="section-label reveal">Beyond Work</div>
+    <h2 class="reveal">Curiosity doesn't clock out.</h2>
+    <div class="beyond-grid reveal">
+      <div class="beyond-card">
+        <div class="beyond-icon">📊</div>
+        <div class="beyond-title">Data in the wild</div>
+        <p class="beyond-text">I notice patterns everywhere — in transit schedules, restaurant wait times, sports statistics. If there's a dataset hiding in something, I probably want to find it.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="beyond-icon">📚</div>
+        <div class="beyond-title">Reading & learning</div>
+        <p class="beyond-text">I gravitate toward books and papers at the edge of what's known — ML research, complexity science, behavioral economics, and the occasional sci-fi novel that turns out to be surprisingly technical.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="beyond-icon">✈️</div>
+        <div class="beyond-title">Travel</div>
+        <p class="beyond-text">Moving from Pune to Boulder gave me a taste for new environments. I enjoy exploring cities, trying food I can't pronounce, and finding the local version of "nothing special" that turns out to be unforgettable.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="beyond-icon">🎵</div>
+        <div class="beyond-title">Music</div>
+        <p class="beyond-text">Music while working is non-negotiable. My playlists range from lo-fi for deep focus to Bollywood classics for when a model finally converges.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="beyond-icon">🏃‍♀️</div>
+        <div class="beyond-title">Running & outdoors</div>
+        <p class="beyond-text">Living in Boulder makes it hard not to go outside. Running and hiking help me think — some of my best debugging happens on trails.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="beyond-icon">🍳</div>
+        <div class="beyond-title">Cooking</div>
+        <p class="beyond-text">Cooking is the one domain where I let myself experiment without a hypothesis. Mostly Indian food, occasionally disastrous, often delicious.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Contact</div>
+    <h2 class="reveal">Let's build something useful.</h2>
+    <div class="contact-grid reveal">
+      <div>
+        <p class="contact-intro">I'm currently looking for full-time opportunities in data science, ML engineering, and AI engineering. If you're working on something interesting — or if you just want to talk about time-series models — I'd love to hear from you.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:nallawardivya@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <span>
+            <span class="contact-link-label">EMAIL</span>
+            nallawardivya@gmail.com
+          </span>
+        </a>
+        <a href="https://linkedin.com/in/divya-nallawar" target="_blank" class="contact-link">
+          <span class="contact-link-icon">↗</span>
+          <span>
+            <span class="contact-link-label">LINKEDIN</span>
+            linkedin.com/in/divya-nallawar
+          </span>
+        </a>
+        <a href="https://github.com/divya8699" target="_blank" class="contact-link">
+          <span class="contact-link-icon">↗</span>
+          <span>
+            <span class="contact-link-label">GITHUB</span>
+            github.com/divya8699
+          </span>
+        </a>
+        <a href="tel:+19707938987" class="contact-link">
+          <span class="contact-link-icon">☎</span>
+          <span>
+            <span class="contact-link-label">PHONE</span>
+            +1 970 793 8987
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>Divya Nallawar · Built with HTML · Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
